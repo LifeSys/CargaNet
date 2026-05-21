@@ -72,6 +72,15 @@ function renderGrafico() {
           datosFiltrados.filter((d) => d.estado === "entregado").length
         ]
       }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: "bottom"
+        }
+      }
     }
   });
 }
