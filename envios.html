@@ -39,7 +39,7 @@
           <input id="descripcion" class="form-control" placeholder="Descripción del envío">
         </div>
         <div class="col-md-2">
-          <input id="peso" type="number" step="0.01" min="0" class="form-control" placeholder="Peso (kg)">
+          <input id="precio" type="number" step="0.01" min="0" class="form-control" placeholder="Precio">
         </div>
         <div class="col-md-2 d-grid">
           <button onclick="crearEnvio()" class="btn btn-primary">Crear</button>
@@ -56,13 +56,25 @@
           <input id="destinatarioDireccion" class="form-control" placeholder="Dirección">
         </div>
         <div class="col-md-2">
-          <input id="precio" type="number" step="0.01" min="0" class="form-control" placeholder="Precio">
-        </div>
-        <div class="col-md-1">
           <input id="fechaEnvio" type="date" class="form-control" title="Fecha envío">
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
           <input id="fechaEntrega" type="date" class="form-control" title="Fecha entrega">
+        </div>
+      </div>
+    </div>
+
+    <div class="surface p-3 mb-3">
+      <h6>Filtros de envíos</h6>
+      <div class="row g-2">
+        <div class="col-md-5">
+          <input id="busquedaEnvio" class="form-control" placeholder="Buscar por cliente o descripción">
+        </div>
+        <div class="col-md-3">
+          <input id="filtroFechaEnvio" type="date" class="form-control" title="Filtrar por fecha de envío">
+        </div>
+        <div class="col-md-2 d-grid">
+          <button id="limpiarFiltros" class="btn btn-outline-secondary">Limpiar filtros</button>
         </div>
       </div>
     </div>
