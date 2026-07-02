@@ -82,10 +82,27 @@ async function cargarDashboard() {
     if (graficoFechas) graficoFechas.destroy();
 
     graficoEstados = new Chart(document.getElementById("graficoEstados"), {
-      type: "doughnut",
+      type: "bar",
       data: {
         labels: ["Almacén", "Tránsito", "Entregado"],
-        datasets: [{ backgroundColor: ["#1d4ed8", "#f59e0b", "#16a34a"], data: [almacen, transito, entregado] }]
+        datasets: [{
+          label: "Envíos por estado",
+          backgroundColor: ["#1d4ed8", "#f59e0b", "#16a34a"],
+          borderRadius: 8,
+          maxBarThickness: 82,
+          data: [almacen, transito, entregado]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.parsed.y} envíos` } }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { weight: "600" } } },
+          y: { beginAtZero: true, ticks: { precision: 0 } }
+        }
       }
     });
 
