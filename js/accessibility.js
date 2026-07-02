@@ -73,6 +73,15 @@ function speak(action = "play") {
     return;
   }
 
+  if (action === "toggle") {
+    if (state.reading) {
+      speak("stop");
+    } else {
+      speak("play");
+    }
+    return;
+  }
+
   if (action === "stop") {
     speechSynthesis.cancel();
     state.reading = false;
@@ -132,7 +141,11 @@ function renderWidget() {
   widget.className = "accessibility-widget";
   widget.setAttribute("aria-label", "Herramientas de accesibilidad");
   widget.innerHTML = `
-    <button id="accessibilityButton" class="accessibility-button" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="accessibilityPanel" aria-label="Abrir panel de accesibilidad">♿</button>
+    <div class="accessibility-toolbar" role="region" aria-label="Accesos rápidos de accesibilidad">
+      <button id="a11yQuickRead" class="accessibility-quick accessibility-quick-read" type="button" data-speech="toggle" aria-label="Leer página en voz alta">🔊 <span>Leer página</span></button>
+      <button id="a11yQuickContrast" class="accessibility-quick accessibility-quick-contrast" type="button" aria-pressed="false" aria-label="Activar alto contraste">◐ <span>Contraste</span></button>
+      <button id="accessibilityButton" class="accessibility-settings" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="accessibilityPanel" aria-label="Abrir más opciones de accesibilidad">⚙️</button>
+    </div>
     <div id="accessibilityBackdrop" class="accessibility-backdrop" hidden></div>
     <aside id="accessibilityPanel" class="accessibility-panel" role="dialog" aria-modal="true" aria-labelledby="a11yTitle" hidden>
       <div class="a11y-panel-header"><div><p class="a11y-eyebrow">CargaNet</p><h2 id="a11yTitle">Accesibilidad</h2></div><button id="a11yClose" class="a11y-icon-button" type="button" aria-label="Cerrar panel">×</button></div>
@@ -161,6 +174,17 @@ function syncControls() {
   document.querySelectorAll("[data-speech='pause'], [data-speech='resume'], [data-speech='stop']").forEach((button) => {
     button.disabled = !state.reading;
   });
+  const quickRead = document.getElementById("a11yQuickRead");
+  if (quickRead) {
+    quickRead.setAttribute("aria-pressed", String(state.reading));
+    quickRead.setAttribute("aria-label", state.reading ? "Detener lectura en voz alta" : "Leer página en voz alta");
+    quickRead.querySelector("span").textContent = state.reading ? "Detener lectura" : "Leer página";
+  }
+  const quickContrast = document.getElementById("a11yQuickContrast");
+  if (quickContrast) {
+    quickContrast.setAttribute("aria-pressed", String(state.highContrast));
+    quickContrast.setAttribute("aria-label", state.highContrast ? "Desactivar alto contraste" : "Activar alto contraste");
+  }
 }
 
 function improveSemantics() {
@@ -180,6 +204,7 @@ function improveSemantics() {
 
 function bindEvents() {
   document.getElementById("accessibilityButton").addEventListener("click", () => togglePanel());
+  document.getElementById("a11yQuickContrast").addEventListener("click", () => setPreference("highContrast", !state.highContrast));
   document.getElementById("a11yClose").addEventListener("click", () => togglePanel(false));
   document.getElementById("accessibilityBackdrop").addEventListener("click", () => togglePanel(false));
   document.getElementById("a11yReset").addEventListener("click", () => { Object.assign(state, DEFAULTS); AccessibilityStorage.clear(); window.speechSynthesis?.cancel(); applyPreferences(); syncControls(); });
