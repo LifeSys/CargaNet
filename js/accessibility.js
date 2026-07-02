@@ -142,9 +142,9 @@ function renderWidget() {
   widget.setAttribute("aria-label", "Herramientas de accesibilidad");
   widget.innerHTML = `
     <div class="accessibility-toolbar" role="region" aria-label="Accesos rápidos de accesibilidad">
-      <button id="a11yQuickRead" class="accessibility-quick accessibility-quick-read" type="button" data-speech="toggle" aria-label="Leer página en voz alta">🔊 <span>Leer página</span></button>
-      <button id="a11yQuickContrast" class="accessibility-quick accessibility-quick-contrast" type="button" aria-pressed="false" aria-label="Activar alto contraste">◐ <span>Contraste</span></button>
-      <button id="accessibilityButton" class="accessibility-settings" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="accessibilityPanel" aria-label="Abrir más opciones de accesibilidad">⚙️</button>
+      <button id="a11yQuickRead" class="accessibility-quick accessibility-quick-read" type="button" data-speech="toggle" aria-label="Leer página en voz alta"><span>Leer página</span></button>
+      <button id="a11yQuickContrast" class="accessibility-quick accessibility-quick-contrast" type="button" aria-pressed="false" aria-label="Activar alto contraste"><span>Contraste</span></button>
+      <button id="accessibilityButton" class="accessibility-settings" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="accessibilityPanel" aria-label="Abrir más opciones de accesibilidad">Ajustes</button>
     </div>
     <div id="accessibilityBackdrop" class="accessibility-backdrop" hidden></div>
     <aside id="accessibilityPanel" class="accessibility-panel" role="dialog" aria-modal="true" aria-labelledby="a11yTitle" hidden>
